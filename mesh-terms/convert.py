@@ -18,7 +18,7 @@ def file_to_dataframe(file: str | pathlib.Path, columns: List[str]) -> pd.DataFr
         Dataframe:  With the file's contents
     """
 
-    df = pd.read_csv(file, header=0, quotechar="|", sep=";", encoding="latin1")
+    df = pd.read_csv(file, header=0, quotechar="|", sep=";")
 
     # Remove tailoring empty column(s) as separators are used in a strange way
     df.dropna(axis=1, how="all", inplace=True)

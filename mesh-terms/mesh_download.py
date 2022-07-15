@@ -18,13 +18,13 @@ def download_terms(url: str) -> None:
     if response.status_code != 200:
         logger.error(f"failed to get archive: {response.text}")
 
-    tmp_file = pathlib.Path(".") / "tmp.zip"
+    tmp_file = pathlib.Path("tmp.zip")
     if tmp_file.exists():
         tmp_file.unlink()
 
     tmp_file.write_bytes(response.content)
 
-    target_dir = pathlib.Path(".") / "data"
+    target_dir = pathlib.Path("data")
     if target_dir.exists():
         shutil.rmtree(target_dir)
     target_dir.mkdir()
@@ -40,6 +40,21 @@ def download_terms(url: str) -> None:
             zip_ref.extractall(target_dir, members=file_names)
     finally:
         tmp_file.unlink()
+
+    # Fix irregular file encoding and file extensions
+    for file in target_dir.glob("**/*"):
+        if not file.is_file():
+            continue
+
+        # Read with western european encoding
+        try:
+            content = file.read_text(encoding="cp1252")
+            file.write_text(content)
+        except UnicodeDecodeError:
+            logger.info(f"ignore file '{str(file)}', may already be UTF-8?")
+
+        # Fix suffix
+        file.rename(file.with_suffix(".txt"))
 
 
 if __name__ == "__main__":
