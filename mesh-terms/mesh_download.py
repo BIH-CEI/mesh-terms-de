@@ -5,7 +5,7 @@ from zipfile import ZipFile
 
 import requests
 
-if __name__ == "__main__":
+if __package__ == "":
     from file_map import FILE_MAP
 else:
     from .file_map import FILE_MAP
@@ -13,7 +13,7 @@ else:
 logger = logging.getLogger(__name__)
 
 
-def download_terms(url: str):
+def download_terms(url: str) -> None:
     response = requests.get(url)
     if response.status_code != 200:
         logger.error(f"failed to get archive: {response.text}")
