@@ -3,10 +3,12 @@ import pathlib
 
 if __package__ == "":
     from convert import file_to_dataframe
+    from db_connection import write_to_db
     from file_map import FILE_MAP
     from mesh_download import download_terms
 else:
     from .convert import file_to_dataframe
+    from .db_connection import write_to_db
     from .file_map import FILE_MAP
     from .mesh_download import download_terms
 
@@ -28,7 +30,7 @@ def import_definitions(url: str, force_download: bool = False):
             logger.error(f"unknown file name {file.stem}: {e}")
             continue
 
-    pass
+    write_to_db(tables)
 
 
 if __name__ == "__main__":
