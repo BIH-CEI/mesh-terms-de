@@ -1,10 +1,14 @@
 import logging
 import pathlib
-import re
 import shutil
 from zipfile import ZipFile
 
 import requests
+
+if __name__ == "__main__":
+    from file_map import FILE_MAP
+else:
+    from .file_map import FILE_MAP
 
 logger = logging.getLogger(__name__)
 
@@ -25,14 +29,13 @@ def download_terms(url: str):
         shutil.rmtree(target_dir)
     target_dir.mkdir()
 
-    regex = re.compile(r"\/[A-Z]+\.((txt|TXT))")
     try:
         with ZipFile(tmp_file) as zip_ref:
             file_names = zip_ref.namelist()
             file_names = [
                 entry
                 for entry in file_names
-                if "demo" not in entry and re.search(regex, entry) != None
+                if "demo" not in entry and pathlib.Path(entry).stem in FILE_MAP
             ]
             zip_ref.extractall(target_dir, members=file_names)
     finally:
