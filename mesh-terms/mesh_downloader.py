@@ -6,8 +6,6 @@ from zipfile import ZipFile
 
 import requests
 
-URL = "https://repository.publisso.de/resource/frl:6433711/data"
-
 logger = logging.getLogger(__name__)
 
 
@@ -42,4 +40,6 @@ def download_terms(url: str):
 
 
 if __name__ == "__main__":
-    download_terms(URL)
+    from urls import MESH_DE_2022
+
+    download_terms(MESH_DE_2022)
