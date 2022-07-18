@@ -3,7 +3,6 @@ version: '3'
 services:
   import:
     image: ghcr.io/bih-cei/mesh-terms-de/import
-    build: .
     depends_on:
       - db
     environment:
