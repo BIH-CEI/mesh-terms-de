@@ -2,8 +2,16 @@ version: '3'
 
 services:
   import:
-    image: import-script
+    image: mesh-import-script
     build: .
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=mesh
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWD=meshterms
 
   db:
     image: postgres:14
