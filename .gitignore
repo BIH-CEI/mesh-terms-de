@@ -4,6 +4,11 @@ tmp.zip
 # Directory to store the downloaded terms
 data/
 
+# VSCode files
+.devcontainer/
+.vscode/
+.history/
+
 
 ### Default ignore patterns
 
