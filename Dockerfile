@@ -1,11 +1,21 @@
-FROM python:3.10
+ARG BASE=python:3.10-alpine
+
+
+FROM $BASE
 
 LABEL org.opencontainers.image.source="https://github.com/BIH-CEI/mesh-terms-de"
 
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN apk add --virtual build-dependencies build-base \
+    && pip install $(grep "pandas" requirements.txt) \
+    && apk del build-dependencies
+RUN apk add --no-cache libstdc++
+
+RUN apk add --virtual build-dependencies build-base \
+    && pip install -r requirements.txt \
+    && apk del build-dependencies
 
 COPY mesh_terms/ mesh_terms
 COPY main.py .

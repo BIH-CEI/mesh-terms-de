@@ -17,7 +17,7 @@ The image can be built using Docker compose
 docker compose -f docker-compose.build.yml
 ```
 
-This creates an image tagged `ghcr.io/bih-cei/mesh-terms-de/import`.
+This creates an image tagged `ghcr.io/bih-cei/mesh-terms-de-import`.
 
 ### Execute
 
