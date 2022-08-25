@@ -2,7 +2,7 @@ version: '3'
 
 services:
   import:
-    image: ghcr.io/bih-cei/mesh-terms-de/import
+    image: ghcr.io/bih-cei/mesh-terms-de-import:main
     depends_on:
       - db
     environment:
