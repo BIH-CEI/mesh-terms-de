@@ -13,7 +13,9 @@ RUN apk add --virtual build-dependencies build-base \
     && apk del build-dependencies
 RUN apk add --no-cache libstdc++
 
-RUN pip install -r requirements.txt
+RUN apk add --virtual build-dependencies build-base \
+    && pip install -r requirements.txt \
+    && apk del build-dependencies
 
 COPY mesh_terms/ mesh_terms
 COPY main.py .
